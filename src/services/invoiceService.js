@@ -1,7 +1,9 @@
+import React from 'react'
+
 /**
  * @type {Invoice[]}
  */
-let invoices = [
+let initialInvoices = [
   {
     name: "Santa Monica",
     number: 1995,
@@ -34,26 +36,33 @@ let invoices = [
   }
 ];
 
-export function getInvoices() {
-  return invoices;
-}
-
 /**
+ * @param invoices {Invoice[]}
  * @param {number} number
  * @returns {Invoice}
  */
-export function getInvoice(number) {
-  return invoices.find(invoice => invoice.number === number);
-}
+const getOneInvoice = (invoices, number) => invoices.find(invoice => invoice.number === number)
 
 /**
+ * @param invoices {Invoice[]}
  * @param {number} number
- * @returns {void}
+ * @returns {Invoice[]}
  */
-export function deleteInvoice(number) {
-  invoices = invoices.filter(invoice => invoice.number !== number);
-}
+const deleteOneInvoice = (invoices, number) => invoices.filter(invoice => invoice.number !== number)
+
+/**
+ * Invoice context
+ */
+const InvoiceContext = React.createContext({
+  getInvoices: () => {},
+  setInvoices: () => {},
+  getInvoice: () => {},
+  deleteInvoice: () => {},
+})
+
 
 /**
  * @typedef {{ name: string; number: number; amount: string; due: string }} Invoice
  */
+
+export {initialInvoices, InvoiceContext, getOneInvoice, deleteOneInvoice}

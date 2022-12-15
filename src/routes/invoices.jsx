@@ -6,7 +6,8 @@ import {
   Outlet,
   useSearchParams,
 } from 'react-router-dom';
-import { getInvoices } from '../data';
+import {useContext} from 'react'
+import {InvoiceContext} from '../services/invoiceService'
 
 function QueryNavLink({ to, ...props }) {
   let location = useLocation();
@@ -14,6 +15,7 @@ function QueryNavLink({ to, ...props }) {
 }
 
 export default function Invoices() {
+  const {getInvoices} = useContext(InvoiceContext)
   let invoices = getInvoices();
   let [searchParams, setSearchParams] = useSearchParams({ replace: true });
 

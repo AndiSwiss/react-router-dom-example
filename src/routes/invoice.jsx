@@ -1,9 +1,11 @@
 import * as React from 'react';
 
 import { useParams, useNavigate } from 'react-router-dom';
-import { getInvoice, deleteInvoice } from '../data';
+import {useContext} from 'react'
+import {InvoiceContext} from '../services/invoiceService'
 
 export default function Invoice() {
+  const { getInvoice, deleteInvoice } = useContext(InvoiceContext)
   let navigate = useNavigate();
   let params = useParams();
   let invoice = getInvoice(parseInt(params.invoiceId, 10));
