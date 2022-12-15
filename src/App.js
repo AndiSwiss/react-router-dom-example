@@ -6,7 +6,7 @@ import Invoices from './routes/invoices'
 import Invoice from './routes/invoice'
 import {deleteOneInvoice, getOneInvoice, initialInvoices, InvoiceContext} from './services/invoiceService'
 
-function Nav() {
+function MainComponent() {
   return (
     <div>
       <h1>Bookkeeper</h1>
@@ -20,19 +20,21 @@ function Nav() {
 }
 
 export default function App() {
-  // Test, whether this App keeps the state => works
+  // Store invoices as state
   const [invoices, setInvoices] = useState(initialInvoices)
+
+  // Use invoices in a context: prepare all corresponding functions:
   const getInvoices = () => invoices
   const getInvoice = (number) => getOneInvoice(invoices, number)
   const deleteInvoice = (number) => setInvoices(deleteOneInvoice(invoices, number))
-
+  // Wrapper for using in the InvoiceContext.Provider
   const invoiceWrapper = { getInvoices, setInvoices, getInvoice, deleteInvoice }
 
   return (
     <BrowserRouter>
       <InvoiceContext.Provider value={invoiceWrapper}>
         <Routes>
-          <Route path="/" element={<Nav/>}>
+          <Route path="/" element={<MainComponent/>}>
             <Route path="expenses" element={<Expenses/>}/>
             <Route path="invoices" element={<Invoices/>}>
               <Route
